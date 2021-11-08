@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"
+      xmlns:dc="http://purl.org/dc/terms/"
+      xmlns:ov="http://open.vocab.org/terms/"
+      xmlns:oz="http://openzim.org/terms/"
+      xmlns:opds="http://opds-spec.org/2010/catalog">
+  <id>urn:uuid:{{ uuid }}</id>
+
+  <link rel="start"
+        href="{{ catalog.root_url }}"
+        type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
+  <link rel="self"
+        href="{{ catalog.url }}"
+        type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
+
+  {% for subcatalog in catalog.subcatalogs %}
+    <entry>
+      <title>{{ subcatalog.title }}</title>
+      <link type="application/atom+xml;profile=opds-catalog;kind=acquisition" rel="subsection" href="{{ subcatalog.url }}"/>
+      <updated>2021-11-04T22:21:15Z</updated>
+      <id>{{ subcatalog.url }}</id>
+    </entry>
+  {% endfor %}
+
+  <title>{{ catalog.title }}</title>
+  {% if updated %}
+  <updated>{{ updated }}</updated>
+  {% endif %}
+  {% if catalog.author_name or catalog.author_url %}
+  <author>
+    {% if catalog.author_name %}
+    <name>{{ catalog.author_name }}</name>
+    {% endif %}
+    {% if catalog.author_url %}
+    <uri>{{ catalog.author_url }}</uri>
+    {% endif %}
+  </author>
+  {% endif %}
+
+  {% for entry in catalog.entries %}
+  <entry>
+    <title>{{ entry.title }}</title>
+    <id>urn:uuid:{{ entry.uuid }}</id>
+    {% if catalog.issued %}
+    <dc:issued>{{ entry.issued }}</dc:issued>
+    {% endif %}
+    <updated>{{ entry.updated }}</updated>
+    {% if catalog.author_name or catalog.author_url %}
+    <author>
+      {% if entry.author_name %}
+      <name>{{ entry.author_name }}</name>
+      {% endif %}
+      {% if entry.author_url %}
+      <uri>{{ entry.author_url }}</uri>
+      {% endif %}
+    </author>
+    {% endif %}
+    {% for language in entry.languages %}
+    <dc:language>{{ language }}</dc:language>
+    {% endfor %}
+    {% for mimetype, url in entry.urls.items() %}
+    <link rel="http://opds-spec.org/acquisition"
+          href="{{ url }}"
+          type="{{ mimetype }}"/>
+    {% endfor %}
+    {% if entry.checksum %}
+    <ov:hasChecksum>{{entry.checksum_algorithm}}:{{ entry.checksum }}</ov:hasChecksum>
+    {% endif %}
+    {% if entry.file_size %}
+    <dc:extent>{{ entry.file_size }}</dc:extent>
+    {% endif %}
+    {% if entry.summary %}
+    <summary>{{ entry.summary }}</summary>
+    {% endif %}
+    {% for right in entry.rights %}
+    <rights>{{ right }}</rights>
+    {% endfor %}
+    {% for tag in entry.tags %}
+    <oz:tag>{{ tag }}</oz:tag>
+    {% endfor %}
+    {% for required_mimetype in entry.requires_mimetypes %}
+    <oz:requires>{{ required_mimetype }}</oz:requires>
+    {% endfor %}
+    {% if entry.image %}
+    <link rel="http://opds-spec.org/image"
+    href="{{ image }}"
+    type="{{ image|mimetype }}"/>
+    {% endif %}
+    {% if entry.thumbnail %}
+    <link rel="http://opds-spec.org/image/thumbnail"
+    href="{{ thumbnail }}"
+    type="{{ thumbnail|mimetype }}"/>
+    {% endif %}
+  </entry>
+  {% endfor %}
+</feed>

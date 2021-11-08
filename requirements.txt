@@ -1,0 +1,4 @@
+flask
+jinja
+requests
+Jinja2
