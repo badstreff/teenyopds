@@ -4,7 +4,9 @@ from flask import Flask, send_from_directory, request
 from opds import fromdir
 
 
-CONTENT_BASE_DIR = os.environ["CONTENT_BASE_DIR"]
+CONTENT_BASE_DIR = "/library"
+if "CONTENT_BASE_DIR" in os.environ:
+    CONTENT_BASE_DIR = os.environ["CONTENT_BASE_DIR"]
 
 
 app = Flask(__name__)
