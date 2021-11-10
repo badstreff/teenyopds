@@ -74,5 +74,9 @@ def mimetype(path):
         return "application/pdf"
     elif extension == "epub":
         return "application/epub"
+    elif extension == "mobi":
+        return "application/mobi"
+    elif extension == "fb2":
+        return "application/fb2"
     else:
         return "application/unknown"
