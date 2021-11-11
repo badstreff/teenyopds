@@ -18,6 +18,17 @@ Currently only a single option can be set via an environment variable `CONTENT_B
 
 `/heathz` will return "ok" if the service is up and running
 
+## Supported Readers
+
+Any reader that supports OPDS should work, however the following have been verified to work/not work
+
+| App                                                                                                   | Android | iOS |
+| ----------------------------------------------------------------------------------------------------- | ------- | --- |
+| [KyBook 3](http://kybook-reader.com/)                                                                 | -       | ✔️  |
+| Aldiko Next                                                                                           | ❌      | ✔️  |
+| [PocketBook](https://pocketbook.ch/en-ch/app)                                                         | -       | ✔️  |
+| [Moon+ Reader](https://play.google.com/store/apps/details?id=com.flyersoft.moonreader&hl=en_US&gl=US) | ✔️      | -   |
+
 ## TODO
 
 Implement simple searching
