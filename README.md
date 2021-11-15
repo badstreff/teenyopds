@@ -12,7 +12,11 @@ Navigate to `http://localhost:5000/catalog` to view opds catalog
 
 ## Configuration
 
-Currently only a single option can be set via an environment variable `CONTENT_BASE_DIR` to server an alternative directory
+The following environment variables can be set
+
+`CONTENT_BASE_DIR` to server an alternative directory
+
+`TEENYOPDS_ADMIN_PASSWORD` password for content and catalog, if not set the content and catalog will be available publicly
 
 ## Other endpoints
 
