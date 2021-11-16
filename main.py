@@ -6,7 +6,7 @@ from gevent.pywsgi import WSGIServer
 from opds import fromdir
 import config
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path="", static_folder="static")
 auth = HTTPBasicAuth()
 
 
